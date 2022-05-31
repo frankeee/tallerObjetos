@@ -1,0 +1,76 @@
+//Escriban acá su código.
+//ej1
+function agregar(d){ 
+  let siguienteviejo = this.siguiente;
+  this.siguiente = Object.create(this);
+  this.siguiente.dato = d;
+  this.siguiente.siguiente = siguienteviejo;
+  return this;
+} 
+
+let anilloCero = {dato: 0, agregar: agregar}
+anilloCero.siguiente = anilloCero;
+
+//ej2
+anilloCero.toString = function() {
+  let Stringtemp = this.dato.toString();
+  let anilloTemp = this.siguiente;
+  while(this !== anilloTemp){
+      Stringtemp += '->' + anilloTemp.dato.toString();
+      anilloTemp = anilloTemp.siguiente; 
+  } 
+  return Stringtemp;
+}
+
+
+ //ej3
+
+
+
+function Anillo(d) {
+  this.dato = d;
+  this.siguiente = this;
+}
+Anillo.prototype.agregar = agregar;
+Anillo.prototype.toString = anilloCero.toString;
+/*
+ let Anillo = function(d) {
+  let o =  new Object.create(anilloCero);
+  o.dato = d;
+  return o;
+ }
+*/
+
+function calcularResultado(){
+//Editen esta función para que devuelva lo que quieran ver. Pueden escribir acá sus tests, y descomentar las líneas que siguen para correr los tests predefinidos.
+  let res = "";
+  let anilloUno = {dato: 1};
+  anilloUno.siguiente = anilloUno;
+  
+  Object.setPrototypeOf(anilloUno,anilloCero);
+  
+  res += anilloUno.agregar(3).agregar(2)+"<br />"+anilloUno.siguiente; //1 ↝ 2 ↝ 3<br />2 ↝ 3 ↝ 1
+  res +="<br />"+(new Anillo(0)).agregar(2).agregar(1)+"<br />"+anilloCero.siguiente; //0 ↝ 1 ↝ 2<br />0
+  //res +="<br />"+(new Anillo(0)).agregar(2).agregar(1).map(e => e+1);//1 ↝ 2 ↝ 3
+  //res +="<br />"+(new Anillo(0)).agregar(1).map(e => e+4);//4 ↝ 5
+  //res +="<br />"+(new Anillo(1)).map(e => e*2);//2
+  //let anilloDos = (new Anillo(2));
+  //res+= anilloDos;
+  //let anilloCopia = anilloDos.copiar();
+  //anilloDos.agregar(2);
+  //anilloCopia.agregar(1);
+  //res +="<br />"+anilloDos;//2 ↝ 2 ↝ 2
+  //res +="<br />"+anilloCopia;//2 ↝ 1 ↝ 2
+  //res +="<br />"+anilloCopia;//2 ↝ 1 ↝ 2
+  //res +="<br />"+anilloDos.cantidad();//3
+  //res +="<br />"+new Anillo(0).agregar(3).agregar(2).ponerAnteriores().agregar(1).siguiente.anterior;//0 ↝ 1 ↝ 2 ↝ 3
+  //let anilloLetras = (new Anillo("a")).agregar("d").agregar("c");
+  //anilloLetras.siguiente.ponerAnteriores();
+  //anilloLetras.agregar("b");
+  //res +="<br />"+anilloLetras.siguiente.anterior.dato;//a 
+  //anilloLetras.anterior.agregar("e");
+  //res +="<br />"+anilloLetras;//a ↝ b ↝ c ↝ d ↝ e
+  //res +="<br />"+anilloDos.agregar(2).siguiente.anterior;//undefined
+  //res +="<br />"+(new Anillo(1)).agregar(2).siguiente.anterior;//undefined
+  return res;
+}
