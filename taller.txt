@@ -11,8 +11,9 @@ function agregar(d){
 let anilloCero = {dato: 0, agregar: agregar}
 anilloCero.siguiente = anilloCero;
 
+
 //ej2
-anilloCero.toString = function() {
+function toString(){
   let Stringtemp = this.dato.toString();
   let anilloTemp = this.siguiente;
   while(this !== anilloTemp){
@@ -22,17 +23,18 @@ anilloCero.toString = function() {
   return Stringtemp;
 }
 
+anilloCero.toString = toString;
 
- //ej3
-
-
-
+//ej3
 function Anillo(d) {
   this.dato = d;
   this.siguiente = this;
 }
+
 Anillo.prototype.agregar = agregar;
-Anillo.prototype.toString = anilloCero.toString;
+Anillo.prototype.toString = toString;
+
+
 /*
  let Anillo = function(d) {
   let o =  new Object.create(anilloCero);
